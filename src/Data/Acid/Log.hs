@@ -303,7 +303,8 @@ newestEntry identifier = do
     -- XXX: Strict bytestrings are used due to a performance bug in
     -- cereal-0.3.5.2 and binary-0.7.1.0. The code should revert back
     -- to lazy bytestrings once the bug has been fixed.
-    archive <- fmap Lazy.fromStrict $ Strict.readFile logFile
+    --archive <- fmap Lazy.fromStrict $ Strict.readFile logFile
+    archive <- Lazy.readFile logFile
     case Archive.readEntries archive of
       Done            -> worker logFiles
       Next entry next -> return $ Just (decode' (lastEntry entry next))
